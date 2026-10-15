@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "moddochatgpt",
+  "version": "${version}",
+  "name": "Mod do ChatGPT",
+  "description": "Uma surpresa para suas aventuras.",
+  "authors": ["ChatGPT"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["br.com.aparico.moddochatgpt.ModDoChatGPT"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
