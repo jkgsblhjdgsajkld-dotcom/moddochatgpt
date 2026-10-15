@@ -1,3 +1,4 @@
+
 package br.com.aparico.moddochatgpt;
 
 import net.fabricmc.api.ModInitializer;
@@ -5,7 +6,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.random.Random;
 import org.slf4j.Logger;
@@ -19,12 +19,8 @@ public final class ModDoChatGPT implements ModInitializer {
     public void onInitialize() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                if (!(player.getWorld() instanceof ServerWorld)) {
-                    continue;
-                }
-
                 Random random = player.getRandom();
-                // A small, rare surprise can happen while playing normally.
+
                 if (random.nextInt(12_000) != 0 || player.isSpectator() || !player.isAlive()) {
                     continue;
                 }
@@ -37,9 +33,11 @@ public final class ModDoChatGPT implements ModInitializer {
                     case 3 -> player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 30 * 20, 0));
                     default -> player.addStatusEffect(new StatusEffectInstance(StatusEffects.LUCK, 45 * 20, 0));
                 }
+
                 player.sendMessage(Text.literal("§d✦ O mundo ainda guarda surpresas para você. ✦"), true);
             }
         });
+
         LOGGER.info("Mod do ChatGPT carregado.");
     }
 }
